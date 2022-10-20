@@ -1,14 +1,7 @@
 #include <omp.h>
 #include <stdio.h>
 
-int main()
-{
-
-    int threadCount;
-
-    printf("Enter No of threads: ");
-    scanf("%d", &threadCount);
-
+void helloWorld(int threadCount){
     omp_set_num_threads(threadCount);
 
     #pragma omp parallel
@@ -17,4 +10,15 @@ int main()
 
             printf("Hello World from thread no: %d\n", th_num);
         }
+}
+
+int main()
+{
+
+    int threadCount;
+
+    printf("Enter No of threads: ");
+    scanf("%d", &threadCount);
+
+    helloWorld(threadCount);    
 }

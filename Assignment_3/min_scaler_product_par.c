@@ -3,7 +3,7 @@
 #include <time.h>
 #include <omp.h>
 
-#define n 10000
+#define n 100000
 
 void swap(int *num1, int *num2)
 {
@@ -24,7 +24,10 @@ void parallelSort(int arr[])
         {
             if (arr[j] > arr[j + 1])
             {
-                swap(&arr[j], &arr[j + 1]);
+                //swap(&arr[j], &arr[j + 1]);
+                int temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
             }
         }
     }
@@ -42,7 +45,11 @@ void parallelSortReverse(int arr[])
         {
             if (arr[j] < arr[j + 1])
             {
-                swap(&arr[j], &arr[j + 1]);
+                //swap(&arr[j], &arr[j + 1]);
+
+                int temp = arr[j];
+                arr[j] = arr[j+1];
+                arr[j+1] = temp;
             }
         }
     }
@@ -122,11 +129,11 @@ int main()
    
     printf("Time taken (seq): %f\n", end - start);
 
-    int sum = 0;
+    long long sum = 0;
     for (i = 0; i < n; i++)
     {
         sum = sum + (arr1[i] * arr2[i]);
     }
-    printf("%d\n", sum);
+    printf("%lld\n", sum);
     return 0;
 }

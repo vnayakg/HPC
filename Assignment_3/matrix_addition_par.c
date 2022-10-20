@@ -36,14 +36,14 @@ int main(){
     int** b;
     int** c;
 
-    a = malloc(sizeof(int*) * N);
-    b = malloc(sizeof(int*) * N);
-    c = malloc(sizeof(int*) * N);
+    a = (int**)malloc(sizeof(int*) * N);
+    b = (int**)malloc(sizeof(int*) * N);
+    c = (int**)malloc(sizeof(int*) * N);
 
     for(int i=0; i<N; i++){
-        a[i] = malloc(sizeof(int) * N);
-        b[i] = malloc(sizeof(int) * N);
-        c[i] = malloc(sizeof(int) * N);
+        a[i] = (int*)malloc(sizeof(int) * N);
+        b[i] = (int*)malloc(sizeof(int) * N);
+        c[i] = (int*)malloc(sizeof(int) * N);
     }
 
 
@@ -63,4 +63,7 @@ int main(){
     //displayMatrix(c);
     printf("Time taken (seq): %f\n", end - start);
     
+    free(a);
+    free(b);
+    free(c);
 }

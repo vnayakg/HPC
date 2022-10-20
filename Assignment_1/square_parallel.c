@@ -2,15 +2,7 @@
 #include <omp.h>
 #include <time.h>
 
-int main() {
-   
-    double itime, ftime, exec_time;
-
-    int num;
-    printf("Enter num: ");
-    scanf("%d", &num);
-
-    itime = omp_get_wtime();
+long long getSquareSum(int num){
     long long ans = 0;
     int i;
 
@@ -21,8 +13,22 @@ int main() {
         }
         
         
+    return ans;
+}
+
+int main() {
+   
+    double itime, ftime, exec_time;
+
+    int num;
+    printf("Enter num: ");
+    scanf("%d", &num);
+
+    itime = omp_get_wtime();
+    long long ans = getSquareSum(num);
     ftime = omp_get_wtime();
     exec_time = ftime - itime;
+
     printf("Sum of squares of numbers form 1 to 100 is: %lld\n", ans);
     printf("\n\nTime taken is %f\n", exec_time);
 }

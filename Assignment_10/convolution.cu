@@ -8,7 +8,7 @@ __constant__ int mask[7 * 7];
 
 __global__ void convolution_2d(int *matrix, int *result, int N)
 {
-    // Calculate the global thread positions
+    //global thread positions
     int row = blockIdx.y * blockDim.y + threadIdx.y;
     int col = blockIdx.x * blockDim.x + threadIdx.x;
 
@@ -16,7 +16,7 @@ __global__ void convolution_2d(int *matrix, int *result, int N)
     int start_r = row - MASK_OFFSET;
     int start_c = col - MASK_OFFSET;
 
-    // Temp value for accumulating the result
+    
     int temp = 0;
 
     // Iterate over all the rows
@@ -25,20 +25,17 @@ __global__ void convolution_2d(int *matrix, int *result, int N)
         // Go over each column
         for (int j = 0; j < MASK_DIM; j++)
         {
-            // Range check for rows
-            if ((start_r + i) >= 0 && (start_r + i) < N)
+            
+            if ((start_r + i) >= 0 && (start_r + i) < N && (start_c + j) >= 0 && (start_c + j) < N)
             {
-                // Range check for columns
-                if ((start_c + j) >= 0 && (start_c + j) < N)
-                {
-                    // Accumulate result
-                    temp += matrix[(start_r + i) * N + (start_c + j)] * mask[i * MASK_DIM + j];
-                }
+                // result
+                temp += matrix[(start_r + i) * N + (start_c + j)] * mask[i * MASK_DIM + j];
+            
             }
         }
     }
 
-    // Write back the result
+    // Write the result
     result[row * N + col] = temp;
 }
 
@@ -82,7 +79,7 @@ void verify_result(int *m, int *mask, int *result, int N)
                     // Update offset value for column
                     offset_c = j - MASK_OFFSET + l;
 
-                    // Range checks if we are hanging off the matrix
+                    // Range checks if we are outside of the matrix
                     if (offset_r >= 0 && offset_r < N)
                     {
                         if (offset_c >= 0 && offset_c < N)

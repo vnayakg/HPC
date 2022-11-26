@@ -65,16 +65,15 @@ int main(){
     cudaMallocManaged(&b, bytes);
     cudaMallocManaged(&c, bytes);
 
-    initMatrix<<<BLOCKS, THREADS>>>(a, 1, N);
-    initMatrix<<<BLOCKS, THREADS>>>(b, 1, N);
-
-       
     int threads = 16;
     int blocks = (N + threads - 1) / threads;
 
     // Setup our kernel launch parameters
     dim3 THREADS(threads, threads);
     dim3 BLOCKS(blocks, blocks);
+
+    initMatrix<<<BLOCKS, THREADS>>>(a, 1, N);
+    initMatrix<<<BLOCKS, THREADS>>>(b, 1, N);
 
     // Launch our kernel
     matrixMul<<<BLOCKS, THREADS>>>(a, b, c, N);
